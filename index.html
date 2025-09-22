@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<!--
+  CSMS Landing Page
+  - Tailwind via CDN for styling (utility classes)
+  - Responsive header with desktop nav and a mobile hamburger menu
+  - Sections: Hero, About, Premium Products, How It Works, Customer Dashboard, Why Choose, Testimonials, CTA, Footer
+  - Accessibility: mobile menu toggle uses aria-controls and aria-expanded
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSMS - Supply Management</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
+
+<style>
+
+body{
+min-height: 80vh; 
+      align-items: center;    /* Vertical centering */
+      justify-content: center;/* Horizontal centering */
+      text-align: center;
+      
+}
+
+</style>
+</head>
+<!-- Body contains all site sections; Tailwind classes handle spacing, colors, and responsiveness -->
+<body class="min-h-screen bg-gray-50 font-sans scroll-smooth">
+
+  <!-- Header: sticky top bar with logo, desktop navigation, CTA, and mobile menu button -->
+  <header class="bg-white/95 backdrop-blur-lg shadow-xl border-b border-gray-200/30 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><!-- Centers your content in the middle of the page -->
+      <div class="flex justify-between items-center h-20">
+        
+        <!-- Logo -->
+        <div class="flex items-center space-x-4">
+          <div class="relative group cursor-pointer">
+            <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 p-3.5 rounded-2xl shadow-lg">
+              <!-- Factory Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 21h18V8l-6 3V8l-6 3V8l-6 3v10z" />
+              </svg>
+            </div>
+            <div class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md animate-pulse"></div>
+          </div>
+          <div class="ml-2">
+            <span class="text-3xl font-black text-gray-900 tracking-tight">CSMS</span>
+            <p class="text-sm text-gray-500 font-semibold tracking-widest uppercase">Supply Management</p>
+          </div>
+        </div>
+
+        <!-- Navigation (Desktop) -->
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">Home</a>
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">Products</a>
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">Place Order</a>
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">Track Order</a>
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">About</a>
+          <a href="#" class="px-5 py-2.5 text-gray-700 hover:text-blue-600 font-semibold transition rounded-xl hover:bg-blue-50/50">Contact</a>
+        </nav>
+
+        <!-- CTA -->
+        <div class="hidden lg:flex items-center space-x-4">
+          <button class="text-gray-600 hover:text-blue-600 font-semibold px-6 py-2.5 rounded-xl hover:bg-blue-50/70 transition border">Login</button>
+          <button class="relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white px-8 py-3 rounded-2xl font-bold shadow-xl hover:shadow-2xl">Get Started</button>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-button"
+          class="lg:hidden inline-flex items-center justify-center p-2 rounded-xl text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Toggle main menu</span>
+          <!-- Hamburger icon -->
+          <svg data-open-icon xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- Close icon -->
+          <svg data-close-icon xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Mobile navigation panel -->
+      <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-200/60 py-3">
+        <nav class="space-y-1 px-2">
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">Home</a>
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">Products</a>
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">Place Order</a>
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">Track Order</a>
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">About</a>
+          <a href="#" class="block px-4 py-3 rounded-lg text-gray-800 hover:text-blue-700 hover:bg-blue-50 font-semibold">Contact</a>
+
+          <div class="pt-2 mt-2 border-t border-gray-200/60 grid grid-cols-2 gap-2">
+            <button class="w-full col-span-1 text-gray-700 font-semibold px-4 py-2.5 rounded-xl border hover:bg-blue-50/70 transition">Login</button>
+            <button class="w-full col-span-1 bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white px-4 py-2.5 rounded-xl font-bold shadow">Get Started</button>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+<section 
+  class="relative bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 text-white py-32 opacity-0 translate-y-10 transition duration-700 ease-out" 
+  data-animate>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="mb-10">
+      <span class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold uppercase">Saudi Arabia's #1 Supply Platform</span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
+      Smart Supply of
+      <span class="bg-gradient-to-r from-blue-300 via-white to-blue-200 bg-clip-text text-transparent block mt-2">Construction Materials</span>
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl mb-12 text-blue-100/90 max-w-4xl mx-auto leading-relaxed font-medium">
+      Revolutionary digital platform transforming construction procurement across Jeddah & Makkah. Join 500+ companies experiencing seamless material ordering and delivery.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+      <button class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-5 rounded-2xl text-xl font-bold shadow-2xl">Place Order Now</button>
+      <button class="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-12 py-4 rounded-xl text-xl font-bold">Track Your Order</button>
+    </div>
+  </div>
+</section>
+
+  <!-- About Section -->
+  <section 
+  class="py-24 bg-white opacity-0 translate-y-10 transition duration-700 ease-out" 
+  data-animate>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-8">About CSMS Platform</h2>
+      <div class="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
+      <p class="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
+        Tariq Aboud Ali Helabi Trading Est's CSMS revolutionizes construction material supply through cutting-edge digital technology. 
+        Our platform seamlessly connects customers with suppliers, enabling streamlined ordering, 
+        real-time tracking, automated invoicing, and comprehensive delivery management — transforming 
+        how construction companies manage their material procurement across Saudi Arabia.
+      </p>
+    </div>
+    
+    <div class="grid gap-16 md:grid-cols-2 items-center">
+      <!-- Left Content -->
+      <div class="space-y-8">
+        <div class="flex items-start space-x-6 group">
+            <div class="bg-gradient-to-br from-blue-100 to-blue-200 p-4 rounded-2xl shadow-lg">
+              <!-- Users Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M12 12a5 5 0 100-10 5 5 0 000 10zm0 0a9 9 0 016 2.2" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">For Customers</h3>
+              <p class="text-gray-600 text-lg leading-relaxed">
+                Order materials online with smart recommendations, track deliveries in real-time with GPS precision, 
+                and manage invoices effortlessly through our intuitive dashboard.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-6 group">
+            <div class="bg-gradient-to-br from-gray-100 to-gray-200 p-4 rounded-2xl shadow-lg">
+              <!-- Settings Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.043c1.543-.89 3.49.482 2.6 2.025a1.724 1.724 0 001.042 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.043 2.573c.89 1.543-.482 3.49-2.025 2.6a1.724 1.724 0 00-2.573 1.042c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.043c-1.543.89-3.49-.482-2.6-2.025a1.724 1.724 0 00-1.042-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.043-2.573c-.89-1.543.482-3.49 2.025-2.6.92.53 2.067.147 2.573-1.042z" />
+                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">For Companies</h3>
+              <p class="text-gray-600 text-lg leading-relaxed">
+                Streamline operations with automated driver assignments, intelligent purchase management, 
+                comprehensive analytics, and detailed performance reports.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Content (Stats) -->
+        <div class="bg-gradient-to-br from-blue-50 via-white to-gray-50 p-10 rounded-3xl shadow-2xl border border-gray-100">
+          <div class="grid grid-cols-2 gap-8">
+            <div class="text-center group">
+              <div class="text-4xl font-black text-blue-600 mb-3">99.5%</div>
+              <div class="text-gray-600 font-semibold">Delivery Success</div>
+              <div class="text-sm text-gray-500 mt-1">Industry Leading</div>
+            </div>
+            <div class="text-center group">
+              <div class="text-4xl font-black text-blue-600 mb-3">24hrs</div>
+              <div class="text-gray-600 font-semibold">Avg Delivery</div>
+              <div class="text-sm text-gray-500 mt-1">Express Available</div>
+            </div>
+            <div class="text-center group">
+              <div class="text-4xl font-black text-blue-600 mb-3">50+</div>
+              <div class="text-gray-600 font-semibold">Fleet Trucks</div>
+              <div class="text-sm text-gray-500 mt-1">Modern Fleet</div>
+            </div>
+            <div class="text-center group">
+              <div class="text-4xl font-black text-blue-600 mb-3">2</div>
+              <div class="text-gray-600 font-semibold">Major Cities</div>
+              <div class="text-sm text-gray-500 mt-1">Expanding Soon</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Premium Products Section -->
+  <section 
+  class="py-24 bg-gradient-to-br from-gray-50 to-blue-50 opacity-0 translate-y-10 transition duration-700 ease-out" 
+  data-animate>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-8">Premium Products</h2>
+      <div class="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
+      <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+        Superior construction materials sourced from certified suppliers, delivered with precision and reliability.
+      </p>
+    </div>
+    
+    <div class="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        
+        <!-- Product 1: Cement -->
+        <div class="group bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16"></div>
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- Package Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M3 7l9-4 9 4-9 4-9-4zm0 4l9 4 9-4M3 7v10l9 4 9-4V7" />
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Premium Cement</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            High-grade Portland cement available in bulk and bagged quantities. Perfect for all construction applications 
+            with guaranteed quality standards and express delivery options.
+          </p>
+          <div class="mb-8 space-y-4">
+            <div class="flex items-center text-gray-700">
+              <!-- Check Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Bulk & 50kg bags available</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Same-day delivery option</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Quality certified materials</span>
+            </div>
+          </div>
+          <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg">
+            Order Cement Now
+          </button>
+        </div>
+
+        <!-- Product 2: Aggregate -->
+        <div class="group bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gray-500/10 rounded-full -mr-16 -mt-16"></div>
+          <div class="bg-gradient-to-br from-gray-600 to-gray-700 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- Mountain Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M3 20l9-16 9 16H3z" />
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Quality Aggregate</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            Premium crushed stone aggregate in various sizes. Ideal for concrete production, road construction, 
+            and foundation work with consistent grading and superior durability.
+          </p>
+          <div class="mb-8 space-y-4">
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Multiple size grades available</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Washed & clean material</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Volume discounts available</span>
+            </div>
+          </div>
+          <button class="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-4 rounded-2xl font-bold hover:from-gray-700 hover:to-gray-800 transition-all duration-300 shadow-lg">
+            Order Aggregate Now
+          </button>
+        </div>
+
+        <!-- Product 3: Sand -->
+        <div class="group bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full -mr-16 -mt-16"></div>
+          <div class="bg-gradient-to-br from-amber-600 to-amber-700 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- Factory Icon (Sand) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M3 21h18V8l-6 3V8l-6 3V8l-6 3v10z" />
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Construction Sand</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            Fine and coarse sand varieties suitable for concrete mixing, plastering, and general construction. 
+            Clean, properly sieved, and ready for immediate use in your projects.
+          </p>
+          <div class="mb-8 space-y-4">
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Fine & coarse varieties</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Properly sieved & clean</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+              <span class="font-medium">Moisture content controlled</span>
+            </div>
+          </div>
+          <button class="w-full bg-gradient-to-r from-amber-600 to-amber-700 text-white py-4 rounded-2xl font-bold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg">
+            Order Sand Now
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- How It Works Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-8">How Our System Works</h2>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          A streamlined 4-step process designed for maximum efficiency and complete transparency.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-4 gap-10">
+        
+        <!-- Step 1 -->
+        <div class="text-center group">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-br from-blue-100 to-blue-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto shadow-xl">
+              <!-- Package Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 7l9-4 9 4-9 4-9-4zm0 4l9 4 9-4M3 7v10l9 4 9-4V7" />
+              </svg>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">1</div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-5">Place Order Online</h3>
+          <p class="text-gray-600 leading-relaxed text-lg">
+            Browse our comprehensive catalog, select materials with smart recommendations, specify quantities 
+            and delivery location with instant pricing.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center group">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-br from-green-100 to-green-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto shadow-xl">
+              <!-- CheckCircle Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">2</div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-5">Order Confirmation</h3>
+          <p class="text-gray-600 leading-relaxed text-lg">
+            Our expert admin team reviews and confirms your order within 30 minutes. Driver and delivery truck are 
+            automatically assigned with full tracking details.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center group">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-br from-orange-100 to-orange-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto shadow-xl">
+              <!-- Truck Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 13h13v-2a1 1 0 011-1h4l3 5v6h-2a3 3 0 11-6 0h-4a3 3 0 11-6 0H3v-8z" />
+              </svg>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">3</div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-5">Express Delivery</h3>
+          <p class="text-gray-600 leading-relaxed text-lg">
+            Track your order in real-time with GPS precision as our professional drivers deliver materials 
+            to your exact location across Jeddah and Makkah.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="text-center group">
+          <div class="relative mb-8">
+            <div class="bg-gradient-to-br from-purple-100 to-purple-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto shadow-xl">
+              <!-- FileText Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v12a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">4</div>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-5">Smart Analytics</h3>
+          <p class="text-gray-600 leading-relaxed text-lg">
+            Receive detailed digital invoices instantly. Access comprehensive order history, spending analytics, 
+            and performance insights through your dashboard.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Customer Dashboard Section -->
+  <section class="py-24 bg-gradient-to-br from-blue-50 to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-8">Customer Dashboard</h2>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          Advanced tools to streamline your material procurement and maximize operational efficiency.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-10">
+        
+        <!-- Card 1: Real-time Tracking -->
+        <div class="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full -mr-20 -mt-20"></div>
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- Search Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/>
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Real-time Tracking</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            Enter your order ID for instant delivery status, live driver location, and precise ETA. Complete transparency with every update.
+          </p>
+          <div class="mb-8">
+            <input 
+              type="text" 
+              placeholder="Enter Order ID..." 
+              class="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition text-lg"
+            />
+          </div>
+          <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-2xl font-bold hover:from-blue-700 hover:to-blue-800 transition flex items-center justify-center text-lg shadow-lg">
+            Track Order 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M5 12h14m-7-7l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Card 2: Invoice Hub -->
+        <div class="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-gray-500/5 rounded-full -mr-20 -mt-20"></div>
+          <div class="bg-gradient-to-br from-gray-600 to-gray-700 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- FileText Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v12a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Invoice Hub</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            Access all invoices with advanced filtering. Download PDFs, track payments, and export data seamlessly for accounting integration.
+          </p>
+          <div class="mb-8 space-y-3">
+            <div class="flex justify-between text-lg">
+              <span class="text-gray-500 font-medium">This Month:</span>
+              <span class="font-bold text-gray-700">12 Invoices</span>
+            </div>
+            <div class="flex justify-between text-lg">
+              <span class="text-gray-500 font-medium">Total Amount:</span>
+              <span class="font-bold text-gray-700">SAR 45,200</span>
+            </div>
+            <div class="flex justify-between text-lg">
+              <span class="text-gray-500 font-medium">Pending:</span>
+              <span class="font-bold text-orange-600">SAR 8,500</span>
+            </div>
+          </div>
+          <button class="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-4 rounded-2xl font-bold hover:from-gray-700 hover:to-gray-800 transition flex items-center justify-center text-lg shadow-lg">
+            View All Invoices 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M5 12h14m-7-7l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Card 3: Smart Reorder -->
+        <div class="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-40 h-40 bg-green-500/5 rounded-full -mr-20 -mt-20"></div>
+          <div class="bg-gradient-to-br from-green-600 to-green-700 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 shadow-lg">
+            <!-- Clock Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-3xl font-black text-gray-900 mb-6">Smart Reorder</h3>
+          <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+            One-click reordering with AI-powered recommendations. Set up recurring deliveries and never experience supply shortages again.
+          </p>
+          <div class="mb-8">
+            <div class="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-2xl mb-4 border border-gray-200">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-gray-600 font-medium">Last Order:</span>
+                <span class="font-bold text-gray-800">50 bags cement</span>
+              </div>
+              <div class="text-sm text-gray-500">March 15, 2024 • SAR 3,750</div>
+            </div>
+          </div>
+          <button class="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-4 rounded-2xl font-bold hover:from-green-700 hover:to-green-800 transition flex items-center justify-center text-lg shadow-lg">
+            Reorder Now 
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M5 12h14m-7-7l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Why Choose CSMS Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-20">
+        <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-8">Why Choose CSMS?</h2>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          Our platform delivers unmatched advantages that redefine the construction material supply experience.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+        
+        <!-- Benefit 1 -->
+        <div class="group bg-gradient-to-br from-blue-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- Zap Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Lightning Fast Delivery</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            24-hour average delivery across Jeddah and Makkah with express same-day options for urgent projects.
+          </p>
+        </div>
+
+        <!-- Benefit 2 -->
+        <div class="group bg-gradient-to-br from-green-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-green-500 to-green-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- CheckCircle Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Guaranteed Quality</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            All materials sourced from certified suppliers and verified for quality consistency before dispatch.
+          </p>
+        </div>
+
+        <!-- Benefit 3 -->
+        <div class="group bg-gradient-to-br from-purple-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-purple-500 to-purple-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- BarChart Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M4 21h4V10H4v11zm6 0h4V4h-4v17zm6 0h4V14h-4v7z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Powerful Analytics</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            Comprehensive dashboard with spending insights, delivery performance, and predictive ordering.
+          </p>
+        </div>
+
+        <!-- Benefit 4 -->
+        <div class="group bg-gradient-to-br from-orange-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-orange-500 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- Headphones Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 1a9 9 0 00-9 9v8a3 3 0 006 0v-7a3 3 0 00-6 0"/>
+              <path d="M21 10a9 9 0 00-9-9v0a9 9 0 00-9 9v8a3 3 0 006 0"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">24/7 Support</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            Round-the-clock customer service with dedicated account managers for enterprise clients.
+          </p>
+        </div>
+
+        <!-- Benefit 5 -->
+        <div class="group bg-gradient-to-br from-pink-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-pink-500 to-pink-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- Shield Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 22s8-4 8-10V5l-8-4-8 4v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Secure Platform</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            Enterprise-grade security with encrypted data, secure payments, and GDPR-compliant policies.
+          </p>
+        </div>
+
+        <!-- Benefit 6 -->
+        <div class="group bg-gradient-to-br from-teal-50 to-white p-10 rounded-3xl shadow-lg hover:shadow-2xl transition border border-gray-100">
+          <div class="bg-gradient-to-br from-teal-500 to-teal-600 w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-md">
+            <!-- Globe Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/>
+              <path d="M2 12h20M12 2c2.5 2.5 4 5.5 4 10s-1.5 7.5-4 10"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Expanding Network</h3>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            Currently serving Jeddah and Makkah with nationwide expansion planned across Saudi Arabia.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Testimonials Section -->
+  <section class="py-24 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 text-white relative">
+    <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-20">
+        <h2 class="text-5xl md:text-6xl font-black text-white mb-8">What Our Clients Say</h2>
+        <div class="w-32 h-1.5 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-10 rounded-full"></div>
+        <p class="text-xl text-blue-100 max-w-3xl mx-auto font-medium">
+          Trusted by leading construction companies and contractors across Saudi Arabia.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        
+        <!-- Testimonial 1 -->
+        <div class="bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-xl border border-white/10">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-400">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client 1">
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-white">Ahmed Al-Saud</h3>
+              <p class="text-blue-200 text-sm">Project Manager, Saudi Build Co.</p>
+            </div>
+          </div>
+          <p class="text-blue-100 leading-relaxed text-lg">
+            “CSMS transformed how we manage material procurement. Delivery times have improved drastically 
+            and the transparency in order tracking is unmatched.”
+          </p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-xl border border-white/10">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-400">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client 2">
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-white">Fatimah Al-Harbi</h3>
+              <p class="text-blue-200 text-sm">Procurement Head, Al Noor Constructions</p>
+            </div>
+          </div>
+          <p class="text-blue-100 leading-relaxed text-lg">
+            “The platform’s analytics and reporting tools have given us deeper insights into our supply chain. 
+            Highly recommended for serious contractors.”
+          </p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-white/10 backdrop-blur-lg p-10 rounded-3xl shadow-xl border border-white/10">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-blue-400">
+              <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="Client 3">
+            </div>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold text-white">Mohammed Khan</h3>
+              <p class="text-blue-200 text-sm">CEO, BuildSmart Ltd.</p>
+            </div>
+          </div>
+          <p class="text-blue-100 leading-relaxed text-lg">
+            “Reliable, efficient, and innovative. CSMS has become an integral part of our construction 
+            operations, saving us both time and money.”
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Call to Action Section -->
+  <section class="py-32 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] opacity-10"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <h2 class="text-5xl md:text-6xl font-black mb-8 leading-tight">
+        Ready to Transform Your <br />
+        <span class="bg-gradient-to-r from-blue-200 via-white to-blue-300 bg-clip-text text-transparent">
+          Supply Management?
+        </span>
+      </h2>
+      
+      <p class="text-xl text-blue-100 max-w-3xl mx-auto mb-12 font-medium">
+        Join 500+ companies already using CSMS to streamline their construction material procurement 
+        and delivery process across Saudi Arabia.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+        <button class="bg-white text-blue-700 px-12 py-5 rounded-2xl text-xl font-bold shadow-2xl hover:bg-blue-50 transition">
+          Get Started Now
+        </button>
+        <button class="bg-white/10 border-2 border-white/30 text-white px-12 py-5 rounded-2xl text-xl font-bold hover:bg-white/20 transition">
+          Contact Sales
+        </button>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid md:grid-cols-4 gap-12 mb-16">
+        
+        <!-- Logo + About -->
+        <div>
+          <div class="flex items-center mb-6">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-3 rounded-2xl shadow-lg">
+              <!-- Factory Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 21h18V8l-6 3V8l-6 3V8l-6 3v10z" />
+              </svg>
+            </div>
+            <span class="ml-3 text-2xl font-black text-white">CSMS</span>
+          </div>
+          <p class="text-gray-400 leading-relaxed text-sm">
+            CSMS is revolutionizing construction material supply with digital technology. 
+            Trusted by 500+ companies across Jeddah and Makkah.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-bold text-white mb-6">Quick Links</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="hover:text-white transition">Home</a></li>
+            <li><a href="#" class="hover:text-white transition">Products</a></li>
+            <li><a href="#" class="hover:text-white transition">Place Order</a></li>
+            <li><a href="#" class="hover:text-white transition">Track Order</a></li>
+            <li><a href="#" class="hover:text-white transition">About</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <h3 class="text-lg font-bold text-white mb-6">Resources</h3>
+          <ul class="space-y-3">
+            <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+            <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition">Contact Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h3 class="text-lg font-bold text-white mb-6">Contact</h3>
+          <ul class="space-y-3 text-sm">
+            <li><span class="text-gray-400">📍</span> Jeddah, Saudi Arabia</li>
+            <li><span class="text-gray-400">📞</span> +966 500 123 456</li>
+            <li><span class="text-gray-400">✉️</span> kattique@hotmail.com</li>
+          </ul>
+          <div class="flex space-x-4 mt-6">
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+              <!-- Facebook -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22 12a10 10 0 10-11.5 9.9V15.3h-3v-3.3h3v-2.5c0-3 1.8-4.6 4.5-4.6 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2h3.4l-.5 3.3h-2.9v6.6A10 10 0 0022 12z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+              <!-- Twitter -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 001.88-2.37 8.59 8.59 0 01-2.72 1.04 4.29 4.29 0 00-7.3 3.9 12.17 12.17 0 01-8.84-4.48 4.29 4.29 0 001.33 5.73 4.25 4.25 0 01-1.94-.54v.05a4.29 4.29 0 003.44 4.2 4.3 4.3 0 01-1.93.07 4.3 4.3 0 004.01 2.98A8.6 8.6 0 014 19.54 12.15 12.15 0 0010.29 21c7.55 0 11.68-6.26 11.68-11.68 0-.18 0-.35-.01-.53A8.4 8.4 0 0022.46 6z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition">
+              <!-- LinkedIn -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M4.98 3.5C3.88 3.5 3 4.38 3 5.48c0 1.1.88 1.98 1.98 1.98 1.1 0 1.98-.88 1.98-1.98 0-1.1-.88-1.98-1.98-1.98zM3.5 8h2.97v12H3.5V8zm6.5 0h2.84v1.65h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.6V20h-2.97v-6.42c0-1.53-.03-3.5-2.13-3.5-2.13 0-2.45 1.66-2.45 3.38V20H10V8z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-700 pt-8 text-center">
+        <p class="text-gray-500 text-sm">&copy; 2025 CSMS. All rights reserved.</p>
+      </div>
+
+    </div>
+  </footer>
+  
+
+  
+</body>
+</html>
