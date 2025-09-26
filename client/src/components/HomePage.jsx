@@ -34,27 +34,27 @@ const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-100" style={{ fontFamily: 'Inter, Segoe UI, system-ui, sans-serif' }}>
       {/* Pill-Shaped Glassy Navbar */}
-      <header className="fixed top-0 left-0 right-0 z-50 p-4 sm:p-6">
-        <div className="max-w-6xl mx-auto">
-          <nav className="bg-white/20 backdrop-blur-2xl border border-white/30 rounded-full shadow-2xl px-6 py-3 transition-all duration-500 hover:bg-white/25 hover:shadow-3xl">
-            <div className="flex justify-between items-center">
+      <header className="fixed top-0 left-0 right-0 z-50 p-3 sm:p-4 md:p-6">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
+          <nav className="bg-white/20 backdrop-blur-2xl border border-white/30 rounded-full shadow-2xl px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 transition-all duration-500 hover:bg-white/25 hover:shadow-3xl">
+            <div className="flex justify-between items-center gap-2">
               {/* Compact Logo for Pill Navbar */}
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <div className="relative group cursor-pointer">
-                  <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 p-2.5 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                    <Factory className="h-6 w-6 text-white" />
+                  <div className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 p-2 sm:p-2.5 rounded-xl shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                    <Factory className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white shadow-md animate-pulse"></div>
                 </div>
                 <div>
-                  <span className="text-xl font-black text-gray-900 tracking-tight">CSMS</span>
-                  <p className="text-xs text-gray-600 font-semibold tracking-wider uppercase hidden sm:block">Supply Management</p>
+                  <span className="text-lg sm:text-xl font-black text-gray-900 tracking-tight leading-none">CSMS</span>
+                  <p className="text-[10px] sm:text-xs text-black-600 font-semibold tracking-wider uppercase hidden xs:block">Supply Management</p>
                 </div>
               </div>
             
               {/* Pill Navbar Navigation */}
               <div className="hidden lg:flex items-center space-x-1">
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Home
                 </a>
               
@@ -107,26 +107,24 @@ const HomePage = () => {
                   </div>
                 </div>
               </div>
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Products
-                </a>
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                
+                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Place Order
                 </a>
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Track Order
                 </a>
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   About
                 </a>
-                <a href="#" className="px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Contact
                 </a>
               </div>
 
               {/* Pill Navbar CTA Buttons */}
               <div className="hidden lg:flex items-center space-x-3">
-                <button className="text-gray-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
+                <button className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
                   Login
                 </button>
                 <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
@@ -187,7 +185,7 @@ const HomePage = () => {
       </header>
 
       {/* Enhanced Hero Section with Construction Background */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-36 sm:pt-40 md:pt-48 lg:pt-52">
         {/* Construction Site Background */}
         <div 
           className="absolute inset-0 z-0"
@@ -202,34 +200,34 @@ const HomePage = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-950/95 via-blue-900/90 to-slate-900/95 z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10"></div>
         
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
           <div className="text-center">
-            <div className="mb-16 mt-8">
-              <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold uppercase tracking-wider shadow-xl">
+            <div className="mb-10 sm:mb-14 mt-4 sm:mt-8">
+              <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-sm font-bold uppercase tracking-wider shadow-xl whitespace-nowrap">
                 Saudi Arabia's #1 Supply Platform
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-8 leading-tight">
+            <h1 className="text-2.5xl text-[1.9rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 sm:mb-8 leading-[1.15] sm:leading-tight px-1">
               Smart Supply of
-              <span className="bg-gradient-to-r from-blue-300 via-white to-blue-200 bg-clip-text text-transparent block mt-2"> Construction Materials</span>
+              <span className="bg-gradient-to-r from-blue-300 via-white to-blue-200 bg-clip-text text-transparent block mt-1 sm:mt-2"> Construction Materials</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl mb-12 text-blue-100/90 max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-10 sm:mb-12 text-blue-100/90 max-w-3xl sm:max-w-4xl mx-auto leading-relaxed font-medium px-2">
               Revolutionary digital platform transforming construction procurement across Jeddah & Makkah. 
               Join 500+ companies experiencing seamless material ordering and delivery.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-16">
-              <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-2xl text-lg sm:text-xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center group">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-2">
+              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
                 <Package className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300" />
                 Place Order Now
               </button>
-              <button className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-8 sm:px-12 py-4 sm:py-5 rounded-2xl text-lg sm:text-xl font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center group">
+              <button className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-6 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl text-base sm:text-lg md:text-xl font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center justify-center group">
                 <Search className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300" />
                 Track Your Order
               </button>
             </div>
 
             {/* Enhanced Stats Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto mb-32">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-5xl mx-auto mb-20 sm:mb-28 md:mb-32 px-2">
               <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
                 <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-blue-300 mb-4 mx-auto group-hover:scale-110 transition-transform duration-300" />
                 <h3 className="font-black text-white-20 text-xl sm:text-2xl mb-2">500+</h3>
@@ -254,20 +252,19 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced About Section */}
-      <section className="py-32 bg-white">
+      <section className="py-20 sm:py-28 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-10">About CSMS Platform</h2>
-            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-12 rounded-full"></div>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
+          <div className="text-center mb-16 sm:mb-20 md:mb-24">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 md:mb-10 px-2">About CSMS Platform</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-8 sm:mb-10 md:mb-12 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl sm:max-w-4xl mx-auto leading-relaxed font-medium px-1">
               CSMS revolutionizes construction material supply through cutting-edge digital technology. Our platform seamlessly connects 
               customers with suppliers, enabling streamlined ordering, real-time tracking, automated invoicing, and comprehensive delivery management 
               — transforming how construction companies manage their material procurement across Saudi Arabia.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-            <div className="space-y-12">
+          <div className="grid md:grid-cols-2 gap-12 sm:gap-16 md:gap-20 items-center">
+            <div className="space-y-10 sm:space-y-12">
               <div className="flex items-start space-x-8 group">
                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-5 rounded-2xl shadow-lg group-hover:shadow-xl transition-all duration-300">
                   <Users className="h-10 w-10 text-blue-600" />
@@ -288,7 +285,7 @@ const HomePage = () => {
               </div>
             </div>
             
-            <div className="relative overflow-hidden rounded-3xl shadow-2xl border border-gray-100">
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl border border-gray-100 w-full max-w-md md:max-w-none mx-auto">
               {/* Lightly Blurred Background Image */}
               <div 
                 className="absolute inset-0 h-96 bg-cover bg-center"
@@ -334,17 +331,16 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Products Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 sm:py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8">Premium Products</h2>
-            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <div className="text-center mb-14 sm:mb-18 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 px-2">Premium Products</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-6 sm:mb-8 md:mb-10 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-medium px-2">
               Superior construction materials sourced from certified suppliers, delivered with precision and reliability.
             </p>
           </div>
-          
-          <div className="grid lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             <div className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-gray-100 relative overflow-hidden">
               {/* Cement Background Image */}
               <div 
@@ -460,18 +456,17 @@ const HomePage = () => {
       </section>
 
       {/* How It Works */}
-      <section className="py-24 bg-white">
+      <section className="py-20 sm:py-24 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8">How Our System Works</h2>
-            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <div className="text-center mb-14 sm:mb-18 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 px-2">How Our System Works</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-6 sm:mb-8 md:mb-10 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-medium px-2">
               A streamlined 4-step process designed for maximum efficiency and complete transparency.
             </p>
           </div>
-          
-          {/* Construction Process Background Image */}
-          <div className="relative mb-20 rounded-3xl overflow-hidden">
+          <div className="relative mb-14 sm:mb-16 md:mb-20 rounded-3xl overflow-hidden">
+            {/* Construction Process Background Image */}
             <div 
               className="h-32 bg-cover bg-center"
               style={{
@@ -488,7 +483,7 @@ const HomePage = () => {
             </div>
           </div>
           
-          <div className="grid lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             <div className="text-center group">
               <div className="relative mb-8">
                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-all duration-300 shadow-xl group-hover:shadow-2xl">
@@ -496,7 +491,7 @@ const HomePage = () => {
                 </div>
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">1</div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-5">Place Order Online</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Place Order Online</h3>
               <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                 Browse our comprehensive catalog, select materials with smart recommendations, specify quantities and delivery location with instant pricing.
               </p>
@@ -509,7 +504,7 @@ const HomePage = () => {
                 </div>
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">2</div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-5">Order Confirmation</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Order Confirmation</h3>
               <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                 Our expert admin team reviews and confirms your order within 30 minutes. Driver and delivery truck are automatically assigned with full tracking details.
               </p>
@@ -522,7 +517,7 @@ const HomePage = () => {
                 </div>
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">3</div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-5">Express Delivery</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Express Delivery</h3>
               <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                 Track your order in real-time with GPS precision as our professional drivers deliver materials to your exact location across Jeddah and Makkah.
               </p>
@@ -535,7 +530,7 @@ const HomePage = () => {
                 </div>
                 <div className="absolute -top-3 -right-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-black shadow-lg">4</div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-5">Smart Analytics</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Smart Analytics</h3>
               <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                 Receive detailed digital invoices instantly. Access comprehensive order history, spending analytics, and performance insights through your dashboard.
               </p>
@@ -545,18 +540,17 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Customer Tools */}
-      <section className="py-24 bg-gradient-to-br from-blue-50 to-gray-50">
+      <section className="py-20 sm:py-24 bg-gradient-to-br from-blue-50 to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8">Customer Dashboard</h2>
-            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <div className="text-center mb-14 sm:mb-18 md:mb-20">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 px-2">Customer Dashboard</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-6 sm:mb-8 md:mb-10 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-medium px-2">
               Advanced tools to streamline your material procurement and maximize operational efficiency.
             </p>
           </div>
-          
-          {/* Construction Management Background */}
-          <div className="relative mb-16 rounded-3xl overflow-hidden">
+          <div className="relative mb-12 sm:mb-14 md:mb-16 rounded-3xl overflow-hidden">
+            {/* Construction Management Background */}
             <div 
               className="h-40 bg-cover bg-center"
               style={{
@@ -572,7 +566,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className="grid lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
             <div className="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 group relative overflow-hidden">
               <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/5 rounded-full -mr-20 -mt-20"></div>
               <div className="bg-gradient-to-br from-blue-500 to-blue-600 w-20 h-20 rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300 shadow-lg">
@@ -649,16 +643,16 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Benefits */}
-      <section className="py-24 bg-white">
+      <section className="py-20 sm:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-8">Why Choose CSMS</h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <div className="text-center mb-14 sm:mb-18 md:mb-20">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-6 sm:mb-8 px-2">Why Choose CSMS</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-6 sm:mb-8 md:mb-10 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-medium px-2">
               Experience the future of construction material procurement with industry-leading innovation.
             </p>
           </div>
-          <div className="grid lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
             <div className="text-center group">
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-all duration-300 shadow-xl group-hover:shadow-2xl">
                 <Zap className="h-12 w-12 text-blue-600" />
@@ -703,16 +697,16 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Testimonials */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+      <section className="py-20 sm:py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-black text-gray-900 mb-8">Trusted by Leaders</h2>
-            <div className="w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-10 rounded-full"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+          <div className="text-center mb-14 sm:mb-18 md:mb-20">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-gray-900 mb-6 sm:mb-8 px-2">Trusted by Leaders</h2>
+            <div className="w-24 sm:w-32 h-1.5 bg-gradient-to-r from-blue-600 to-blue-800 mx-auto mb-6 sm:mb-8 md:mb-10 rounded-full"></div>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl sm:max-w-3xl mx-auto font-medium px-2">
               Join hundreds of construction companies transforming their material procurement with CSMS.
             </p>
           </div>
-          <div className="grid lg:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
             <div className="bg-white p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100">
               <div className="flex items-center mb-8">
                 <div className="bg-gradient-to-br from-blue-600 to-blue-700 w-16 h-16 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
@@ -759,8 +753,8 @@ const HomePage = () => {
           </div>
 
           {/* Enhanced Stats */}
-          <div className="mt-20 bg-white rounded-3xl p-12 shadow-2xl border border-gray-100">
-            <div className="grid md:grid-cols-4 gap-10 text-center">
+          <div className="mt-14 sm:mt-16 md:mt-20 bg-white rounded-3xl p-8 sm:p-10 md:p-12 shadow-2xl border border-gray-100">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-10 text-center">
               <div className="group">
                 <div className="text-5xl font-black text-blue-600 mb-4 group-hover:scale-110 transition-transform duration-300">500+</div>
                 <div className="text-gray-700 font-bold text-xl mb-2">Monthly Orders</div>
@@ -787,24 +781,24 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced CTA Section */}
-      <section className="py-32 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 text-white relative overflow-hidden">
+      <section className="py-24 sm:py-28 md:py-32 bg-gradient-to-br from-blue-950 via-blue-900 to-slate-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-6xl md:text-7xl font-black mb-10">Ready to Transform?</h2>
-          <p className="text-2xl md:text-3xl text-blue-100/90 mb-16 max-w-5xl mx-auto font-medium leading-relaxed">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8 sm:mb-10 px-2">Ready to Transform?</h2>
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-blue-100/90 mb-12 sm:mb-16 max-w-3xl sm:max-w-4xl md:max-w-5xl mx-auto font-medium leading-relaxed px-2">
             Join the construction revolution. Experience the future of material procurement with CSMS platform.
           </p>
-          <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-            <button className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-16 py-6 rounded-2xl text-2xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center group">
-              <Package className="h-8 w-8 mr-4 group-hover:scale-110 transition-transform duration-300" />
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 justify-center items-center px-2">
+            <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 rounded-2xl text-xl sm:text-2xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
+              <Package className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300" />
               Start Your First Order
             </button>
-            <button className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-16 py-6 rounded-2xl text-2xl font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center group">
-              <Phone className="h-8 w-8 mr-4 group-hover:scale-110 transition-transform duration-300" />
+            <button className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-8 sm:px-12 md:px-16 py-4 sm:py-5 md:py-6 rounded-2xl text-xl sm:text-2xl font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center justify-center group">
+              <Phone className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 mr-3 sm:mr-4 group-hover:scale-110 transition-transform duration-300" />
               Schedule Demo
             </button>
           </div>
@@ -812,9 +806,9 @@ const HomePage = () => {
       </section>
 
       {/* Enhanced Footer */}
-      <footer className="bg-gray-900 text-white py-20">
+      <footer className="bg-gray-900 text-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-5 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12">
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-4 mb-8">
                 <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-4 rounded-2xl shadow-lg">
@@ -900,8 +894,8 @@ const HomePage = () => {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-16 pt-10">
-            <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="border-t border-gray-800 mt-12 sm:mt-16 pt-8 sm:pt-10">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <p className="text-gray-400 text-lg font-medium">
                 &copy; 2024 CSMS - Cement Supply Management System. All rights reserved.
               </p>
