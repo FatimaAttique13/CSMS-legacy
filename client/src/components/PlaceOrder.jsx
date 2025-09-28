@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { 
@@ -39,6 +39,9 @@ import {
 const PlaceOrder = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  
+
+  // use api in future for these objects
   const [selectedProducts, setSelectedProducts] = useState([
     {
       id: 1,
@@ -76,13 +79,29 @@ const PlaceOrder = () => {
     notes: ''
   });
 
-  const updateQuantity = (productId, change) => {
+  // Generic change handler for order detail inputs (memoized)
+  const handleOrderDetailChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setOrderDetails(prev => (prev[name] === value ? prev : { ...prev, [name]: value }));
+  }, []);
+
+  const updateQuantity = useCallback((productId, change) => {
     setSelectedProducts(prev => prev.map(product => 
       product.id === productId 
         ? { ...product, quantity: Math.max(0, product.quantity + change) }
         : product
     ));
-  };
+  }, []);
+
+  // Direct set (used for manual numeric input)
+  const setProductQuantity = useCallback((productId, value) => {
+    const numeric = Number.isNaN(Number(value)) ? 0 : Number(value);
+    setSelectedProducts(prev => prev.map(product => 
+      product.id === productId 
+        ? { ...product, quantity: Math.max(0, numeric) }
+        : product
+    ));
+  }, []);
 
   const getTotal = () => {
     return selectedProducts.reduce((total, product) => 
@@ -94,11 +113,13 @@ const PlaceOrder = () => {
     return selectedProducts.reduce((count, product) => count + product.quantity, 0);
   };
 
-  const steps = [
+  const steps = useMemo(() => ([
     { id: 1, title: 'Select Products', icon: Package, description: 'Choose materials and quantities' },
     { id: 2, title: 'Delivery Details', icon: MapPin, description: 'Provide delivery information' },
     { id: 3, title: 'Review & Confirm', icon: CheckCircle, description: 'Review your order' }
-  ];
+  ]), []);
+
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
 
   const StepIndicator = () => (
     <div className="mb-12 sm:mb-16">
@@ -133,7 +154,7 @@ const PlaceOrder = () => {
     </div>
   );
 
-  const ProductSelection = () => (
+  const ProductSelection = useCallback(() => (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Select Products</h2>
       
@@ -161,9 +182,14 @@ const PlaceOrder = () => {
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-16 text-center font-bold text-xl">
-                    {product.quantity}
-                  </span>
+                  <input
+                    type="number"
+                    min="0"
+                    aria-label={`${product.name} quantity`}
+                    className="w-20 text-center font-bold text-xl bg-white border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300 hide-arrow"
+                    value={product.quantity}
+                    onChange={(e) => setProductQuantity(product.id, e.target.value)}
+                  />
                   <button 
                     onClick={() => updateQuantity(product.id, 1)}
                     className="bg-gray-100 hover:bg-gray-200 p-3 rounded-xl transition-colors duration-200"
@@ -198,52 +224,58 @@ const PlaceOrder = () => {
         </div>
       </div>
     </div>
-  );
+  ), [selectedProducts, updateQuantity, setProductQuantity]);
 
-  const DeliveryDetails = () => (
+  const DeliveryDetails = useCallback(() => (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Delivery Details</h2>
       
       <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Full Name *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Full Name <span className='text-red-400'>*</span></label>
             <input
               type="text"
+              name="customerName"
               value={orderDetails.customerName}
-              onChange={(e) => setOrderDetails({...orderDetails, customerName: e.target.value})}
+              onChange={handleOrderDetailChange}
+              // onFocus={() => console.log('focus customerName')} // debug
+              // onBlur={() => console.log('blur customerName')} // debug
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter your full name"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Email Address *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Email Address <span className='text-red-400'>*</span></label>
             <input
               type="email"
+              name="email"
               value={orderDetails.email}
-              onChange={(e) => setOrderDetails({...orderDetails, email: e.target.value})}
+              onChange={handleOrderDetailChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="your.email@example.com"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number <span className='text-red-400'>*</span></label>
             <input
               type="tel"
+              name="phone"
               value={orderDetails.phone}
-              onChange={(e) => setOrderDetails({...orderDetails, phone: e.target.value})}
+              onChange={handleOrderDetailChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="+966 XX XXX XXXX"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">City *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">City <span className='text-red-400'>*</span></label>
             <select
+              name="city"
               value={orderDetails.city}
-              onChange={(e) => setOrderDetails({...orderDetails, city: e.target.value})}
+              onChange={handleOrderDetailChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
             >
               <option value="Jeddah">Jeddah</option>
@@ -252,10 +284,11 @@ const PlaceOrder = () => {
           </div>
           
           <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-gray-700 mb-2">Delivery Address *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Delivery Address <span className='text-red-400'>*</span></label>
             <textarea
+              name="address"
               value={orderDetails.address}
-              onChange={(e) => setOrderDetails({...orderDetails, address: e.target.value})}
+              onChange={handleOrderDetailChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter complete delivery address with landmarks"
@@ -263,21 +296,23 @@ const PlaceOrder = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Preferred Delivery Date *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Preferred Delivery Date <span className='text-red-400'>*</span></label>
             <input
               type="date"
+              name="deliveryDate"
               value={orderDetails.deliveryDate}
-              onChange={(e) => setOrderDetails({...orderDetails, deliveryDate: e.target.value})}
+              onChange={handleOrderDetailChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
-              min={new Date().toISOString().split('T')[0]}
+              min={today}
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Special Notes</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Special Notes (Optional)</label>
             <textarea
+              name="notes"
               value={orderDetails.notes}
-              onChange={(e) => setOrderDetails({...orderDetails, notes: e.target.value})}
+              onChange={handleOrderDetailChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Any special delivery instructions or notes"
@@ -286,9 +321,9 @@ const PlaceOrder = () => {
         </div>
       </div>
     </div>
-  );
+  ), [orderDetails, handleOrderDetailChange, today]);
 
-  const ReviewConfirm = () => (
+  const ReviewConfirm = useCallback(() => (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Review & Confirm Order</h2>
       
@@ -350,7 +385,7 @@ const PlaceOrder = () => {
         </div>
       </div>
     </div>
-  );
+  ), [selectedProducts, orderDetails]);
 
   const renderCurrentStep = () => {
     switch(currentStep) {
