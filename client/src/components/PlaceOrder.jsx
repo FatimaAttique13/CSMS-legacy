@@ -36,92 +36,10 @@ import {
   NotebookPen
 } from 'lucide-react';
 
-const PlaceOrder = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
-  
+/* ---------- Extracted Components (stable identities) ---------- */
 
-  // use api in future for these objects
-  const [selectedProducts, setSelectedProducts] = useState([
-    {
-      id: 1,
-      name: 'Premium Portland Cement',
-      price: 75,
-      unit: 'per 50kg bag',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 2,
-      name: 'Crushed Granite 20mm',
-      price: 45,
-      unit: 'per ton',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1544819667-3131c8c8da2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 3,
-      name: 'Coarse Sand',
-      price: 35,
-      unit: 'per ton',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    }
-  ]);
-
-  const [orderDetails, setOrderDetails] = useState({
-    customerName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: 'Jeddah',
-    deliveryDate: '',
-    notes: ''
-  });
-
-  // Generic change handler for order detail inputs (memoized)
-  const handleOrderDetailChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setOrderDetails(prev => (prev[name] === value ? prev : { ...prev, [name]: value }));
-  }, []);
-
-  const updateQuantity = useCallback((productId, change) => {
-    setSelectedProducts(prev => prev.map(product => 
-      product.id === productId 
-        ? { ...product, quantity: Math.max(0, product.quantity + change) }
-        : product
-    ));
-  }, []);
-
-  // Direct set (used for manual numeric input)
-  const setProductQuantity = useCallback((productId, value) => {
-    const numeric = Number.isNaN(Number(value)) ? 0 : Number(value);
-    setSelectedProducts(prev => prev.map(product => 
-      product.id === productId 
-        ? { ...product, quantity: Math.max(0, numeric) }
-        : product
-    ));
-  }, []);
-
-  const getTotal = () => {
-    return selectedProducts.reduce((total, product) => 
-      total + (product.price * product.quantity), 0
-    );
-  };
-
-  const getItemsCount = () => {
-    return selectedProducts.reduce((count, product) => count + product.quantity, 0);
-  };
-
-  const steps = useMemo(() => ([
-    { id: 1, title: 'Select Products', icon: Package, description: 'Choose materials and quantities' },
-    { id: 2, title: 'Delivery Details', icon: MapPin, description: 'Provide delivery information' },
-    { id: 3, title: 'Review & Confirm', icon: CheckCircle, description: 'Review your order' }
-  ]), []);
-
-  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
-
-  const StepIndicator = () => (
+function StepIndicator({ steps, currentStep }) {
+  return (
     <div className="mb-12 sm:mb-16">
       <div className="flex items-center justify-center">
         {steps.map((step, index) => (
@@ -153,8 +71,10 @@ const PlaceOrder = () => {
       </div>
     </div>
   );
+}
 
-  const ProductSelection = useCallback(() => (
+function ProductSelection({ selectedProducts, updateQuantity, setProductQuantity, total, itemsCount }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Select Products</h2>
       
@@ -215,18 +135,20 @@ const PlaceOrder = () => {
         <div className="space-y-2">
           <div className="flex justify-between text-gray-700">
             <span className="font-medium">Total Items:</span>
-            <span className="font-bold">{getItemsCount()}</span>
+            <span className="font-bold">{itemsCount}</span>
           </div>
           <div className="flex justify-between text-xl sm:text-2xl font-black text-blue-600 pt-2 border-t border-blue-200">
             <span>Total Amount:</span>
-            <span>SAR {getTotal().toFixed(2)}</span>
+            <span>SAR {total.toFixed(2)}</span>
           </div>
         </div>
       </div>
     </div>
-  ), [selectedProducts, updateQuantity, setProductQuantity]);
+  );
+}
 
-  const DeliveryDetails = useCallback(() => (
+function DeliveryDetails({ orderDetails, onChange, today }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Delivery Details</h2>
       
@@ -238,9 +160,7 @@ const PlaceOrder = () => {
               type="text"
               name="customerName"
               value={orderDetails.customerName}
-              onChange={handleOrderDetailChange}
-              // onFocus={() => console.log('focus customerName')} // debug
-              // onBlur={() => console.log('blur customerName')} // debug
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter your full name"
             />
@@ -252,7 +172,7 @@ const PlaceOrder = () => {
               type="email"
               name="email"
               value={orderDetails.email}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="your.email@example.com"
             />
@@ -264,7 +184,7 @@ const PlaceOrder = () => {
               type="tel"
               name="phone"
               value={orderDetails.phone}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="+966 XX XXX XXXX"
             />
@@ -275,7 +195,7 @@ const PlaceOrder = () => {
             <select
               name="city"
               value={orderDetails.city}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
             >
               <option value="Jeddah">Jeddah</option>
@@ -288,7 +208,7 @@ const PlaceOrder = () => {
             <textarea
               name="address"
               value={orderDetails.address}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter complete delivery address with landmarks"
@@ -301,7 +221,7 @@ const PlaceOrder = () => {
               type="date"
               name="deliveryDate"
               value={orderDetails.deliveryDate}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               min={today}
             />
@@ -312,7 +232,7 @@ const PlaceOrder = () => {
             <textarea
               name="notes"
               value={orderDetails.notes}
-              onChange={handleOrderDetailChange}
+              onChange={onChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Any special delivery instructions or notes"
@@ -321,9 +241,11 @@ const PlaceOrder = () => {
         </div>
       </div>
     </div>
-  ), [orderDetails, handleOrderDetailChange, today]);
+  );
+}
 
-  const ReviewConfirm = useCallback(() => (
+function ReviewConfirm({ selectedProducts, orderDetails, total }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Review & Confirm Order</h2>
       
@@ -343,7 +265,7 @@ const PlaceOrder = () => {
         <div className="mt-6 pt-4 border-t border-gray-200">
           <div className="flex justify-between text-2xl font-black text-blue-600">
             <span>Total Amount:</span>
-            <span>SAR {getTotal().toFixed(2)}</span>
+            <span>SAR {total.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -385,20 +307,129 @@ const PlaceOrder = () => {
         </div>
       </div>
     </div>
-  ), [selectedProducts, orderDetails]);
+  );
+}
+
+/* ---------- Main Page ---------- */
+
+const PlaceOrder = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // use api in future for these objects
+  const [selectedProducts, setSelectedProducts] = useState([
+    {
+      id: 1,
+      name: 'Premium Portland Cement',
+      price: 75,
+      unit: 'per 50kg bag',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    },
+    {
+      id: 2,
+      name: 'Crushed Granite 20mm',
+      price: 45,
+      unit: 'per ton',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1544819667-3131c8c8da2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    },
+    {
+      id: 3,
+      name: 'Coarse Sand',
+      price: 35,
+      unit: 'per ton',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    }
+  ]);
+
+  const [orderDetails, setOrderDetails] = useState({
+    customerName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: 'Jeddah',
+    deliveryDate: '',
+    notes: ''
+  });
+
+  // Handlers
+  const handleOrderDetailChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setOrderDetails(prev => (prev[name] === value ? prev : { ...prev, [name]: value }));
+  }, []);
+
+  const updateQuantity = useCallback((productId, change) => {
+    setSelectedProducts(prev => prev.map(product => 
+      product.id === productId 
+        ? { ...product, quantity: Math.max(0, product.quantity + change) }
+        : product
+    ));
+  }, []);
+
+  const setProductQuantity = useCallback((productId, value) => {
+    const numeric = Number.isNaN(Number(value)) ? 0 : Number(value);
+    setSelectedProducts(prev => prev.map(product => 
+      product.id === productId 
+        ? { ...product, quantity: Math.max(0, numeric) }
+        : product
+    ));
+  }, []);
+
+  // Derived values
+  const total = useMemo(() => {
+    return selectedProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
+  }, [selectedProducts]);
+
+  const itemsCount = useMemo(() => {
+    return selectedProducts.reduce((count, product) => count + product.quantity, 0);
+  }, [selectedProducts]);
+
+  const steps = useMemo(() => ([
+    { id: 1, title: 'Select Products', icon: Package, description: 'Choose materials and quantities' },
+    { id: 2, title: 'Delivery Details', icon: MapPin, description: 'Provide delivery information' },
+    { id: 3, title: 'Review & Confirm', icon: CheckCircle, description: 'Review your order' }
+  ]), []);
+
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
 
   const renderCurrentStep = () => {
     switch(currentStep) {
-      case 1: return <ProductSelection />;
-      case 2: return <DeliveryDetails />;
-      case 3: return <ReviewConfirm />;
-      default: return <ProductSelection />;
+      case 1:
+        return (
+          <ProductSelection
+            selectedProducts={selectedProducts}
+            updateQuantity={updateQuantity}
+            setProductQuantity={setProductQuantity}
+            total={total}
+            itemsCount={itemsCount}
+          />
+        );
+      case 2:
+        return (
+          <DeliveryDetails
+            orderDetails={orderDetails}
+            onChange={handleOrderDetailChange}
+            today={today}
+          />
+        );
+      case 3:
+        return (
+          <ReviewConfirm
+            selectedProducts={selectedProducts}
+            orderDetails={orderDetails}
+            total={total}
+          />
+        );
+      default:
+        return null;
     }
   };
 
   const canProceed = () => {
     if (currentStep === 1) {
-      return getItemsCount() > 0;
+      return itemsCount > 0;
     }
     if (currentStep === 2) {
       return orderDetails.customerName && orderDetails.email && orderDetails.phone && orderDetails.address && orderDetails.deliveryDate;
@@ -526,7 +557,7 @@ const PlaceOrder = () => {
           </div>
 
           {/* Step Indicator */}
-          <StepIndicator />
+          <StepIndicator steps={steps} currentStep={currentStep} />
 
           {/* Step Content */}
           <div className="mb-12">
