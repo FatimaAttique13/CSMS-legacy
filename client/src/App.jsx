@@ -6,6 +6,8 @@ import HomePage from './components/HomePage.jsx';
 import Products from './components/Products.jsx';
 import PlaceOrder from './components/PlaceOrder.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
+import CustomerDashboard from './components/CustomerDashboard.jsx';
+import Contact from './components/Contact.jsx';
 
 // Example of lazy loading for future pages (keep pattern ready)
 // const TrackOrder = React.lazy(() => import('./components/TrackOrder.jsx'));
@@ -58,6 +60,8 @@ const App = () => {
           <Route path="/products" element={<Products />} />
           <Route path="/place-order" element={<PlaceOrder />} />
           <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/dashboard" element={<CustomerDashboard />} />
+          <Route path="/contact" element={<Contact />} />
           {/* <Route path="/track-order" element={<TrackOrder />} /> */}
 
           {/* Catch-all */}
