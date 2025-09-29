@@ -382,6 +382,9 @@ const OrderHistory = () => {
                 <Link to="/order-history" className="px-4 py-2 text-blue-600 font-medium transition-all duration-300 rounded-full bg-white/40 text-sm">
                   Order History
                 </Link>
+                <Link to="/admin/analytics" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Admin
+                </Link>
                 <Link to="/contact" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Contact
                 </Link>
@@ -430,6 +433,9 @@ const OrderHistory = () => {
                   </a>
                   <Link to="/order-history" className="px-4 py-3 text-blue-600 bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Order History
+                  </Link>
+                  <Link to="/admin/analytics" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                    Admin
                   </Link>
                   <Link to="/contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact

@@ -8,6 +8,11 @@ import PlaceOrder from './components/PlaceOrder.jsx';
 import OrderHistory from './components/OrderHistory.jsx';
 import CustomerDashboard from './components/CustomerDashboard.jsx';
 import Contact from './components/Contact.jsx';
+import AdminAnalytics from './components/AdminAnalytics.jsx';
+import Login from './components/Login.jsx';
+import Signup from './components/Signup.jsx';
+import RequireAuth from './components/RequireAuth.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 // Example of lazy loading for future pages (keep pattern ready)
 // const TrackOrder = React.lazy(() => import('./components/TrackOrder.jsx'));
@@ -52,22 +57,31 @@ const ScrollToHashHandler = () => {
 const App = () => {
   return (
     <Router>
-      <Suspense fallback={<Loader />}> {/* Enables future lazy components */}
-        <ScrollToHashHandler />
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/place-order" element={<PlaceOrder />} />
-          <Route path="/order-history" element={<OrderHistory />} />
-          <Route path="/dashboard" element={<CustomerDashboard />} />
-          <Route path="/contact" element={<Contact />} />
-          {/* <Route path="/track-order" element={<TrackOrder />} /> */}
+      <AuthProvider>
+        <Suspense fallback={<Loader />}> {/* Enables future lazy components */}
+          <ScrollToHashHandler />
+          <Routes>
+            {/* Public routes */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<Contact />} />
 
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
+            {/* Customer protected routes */}
+            <Route path="/products" element={<RequireAuth roles={['customer','admin']}><Products /></RequireAuth>} />
+            <Route path="/place-order" element={<RequireAuth roles={['customer','admin']}><PlaceOrder /></RequireAuth>} />
+            <Route path="/order-history" element={<RequireAuth roles={['customer','admin']}><OrderHistory /></RequireAuth>} />
+            <Route path="/dashboard" element={<RequireAuth roles={['customer','admin']}><CustomerDashboard /></RequireAuth>} />
+
+            {/* Admin only */}
+            <Route path="/admin/analytics" element={<RequireAuth roles={['admin']}><AdminAnalytics /></RequireAuth>} />
+            {/* <Route path="/track-order" element={<TrackOrder />} /> */}
+
+            {/* Catch-all */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </Router>
   );
 };
