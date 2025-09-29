@@ -116,12 +116,12 @@ const HomePage = () => {
                 <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Track Order
                 </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <Link to="/#about" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   About
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                </Link>
+                <Link to="/#contact" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Contact
-                </a>
+                </Link>
               </div>
 
               {/* Pill Navbar CTA Buttons */}
@@ -165,12 +165,12 @@ const HomePage = () => {
                   <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Track Order
                   </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  <Link to="/#about" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     About
-                  </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  </Link>
+                  <Link to="/#contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact
-                  </a>
+                  </Link>
                   <div className="pt-4 space-y-3 border-t border-white/20">
                     <button className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
                       Login
@@ -253,8 +253,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Enhanced About Section */}
-      <section className="py-20 sm:py-28 md:py-32 bg-white">
+  {/* Enhanced About Section */}
+  <section id="about" className="scroll-mt-40 py-20 sm:py-28 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 sm:mb-20 md:mb-24">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 md:mb-10 px-2">About CSMS Platform</h2>
@@ -807,8 +807,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Enhanced Footer */}
-      <footer className="bg-gray-900 text-white py-16 sm:py-20">
+  {/* Enhanced Footer */}
+  <footer id="contact" className="scroll-mt-40 bg-gray-900 text-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12">
             <div className="lg:col-span-2">
