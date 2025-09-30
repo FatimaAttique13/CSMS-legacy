@@ -110,28 +110,28 @@ const HomePage = () => {
                 </div>
               </div>
                 
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <Link to="/place-order" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Place Order
-                </a>
+                </Link>
                 <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Track Order
                 </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <Link to="/#about" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   About
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                </Link>
+                <Link to="/#contact" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Contact
-                </a>
+                </Link>
               </div>
 
               {/* Pill Navbar CTA Buttons */}
               <div className="hidden lg:flex items-center space-x-3">
-                <button className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
+                <Link to="/login" className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
                   Login
-                </button>
-                <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
-                  Get Started
-                </button>
+                </Link>
+                <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
+                  Sign Up
+                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -159,25 +159,25 @@ const HomePage = () => {
                   <Link to="/products" className="px-4 py-3 text-black-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Products
                   </Link>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  <Link to="/place-order" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Place Order
-                  </a>
+                  </Link>
                   <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Track Order
                   </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  <Link to="/#about" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     About
-                  </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  </Link>
+                  <Link to="/#contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact
-                  </a>
+                  </Link>
                   <div className="pt-4 space-y-3 border-t border-white/20">
-                    <button className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
+                    <Link to="/login" className="w-full text-center text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
                       Login
-                    </button>
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
-                      Get Started
-                    </button>
+                    </Link>
+                    <Link to="/signup" className="w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
+                      Sign Up
+                    </Link>
                   </div>
                 </nav>
               </div>
@@ -217,15 +217,23 @@ const HomePage = () => {
               Revolutionary digital platform transforming construction procurement across Jeddah & Makkah. 
               Join 500+ companies experiencing seamless material ordering and delivery.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-2">
-              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center mb-6 sm:mb-8 px-2">
+              <Link to="/place-order" className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl text-base sm:text-lg md:text-xl font-bold shadow-2xl hover:shadow-blue-500/25 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group">
                 <Package className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300" />
                 Place Order Now
-              </button>
+              </Link>
               <button className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-6 sm:px-8 md:px-12 py-3.5 sm:py-4 md:py-5 rounded-2xl text-base sm:text-lg md:text-xl font-bold hover:bg-white/20 hover:border-white/50 transition-all duration-300 flex items-center justify-center group">
                 <Search className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-300" />
                 Track Your Order
               </button>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-center mb-12 sm:mb-16 px-2">
+              <Link to="/login" className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-2 border-white/20 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 rounded-2xl text-sm sm:text-base md:text-lg font-semibold hover:bg-white/20 hover:border-white/40 transition-all duration-300 flex items-center justify-center">
+                Login
+              </Link>
+              <Link to="/signup" className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 rounded-2xl text-sm sm:text-base md:text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center">
+                Create Account
+              </Link>
             </div>
 
             {/* Enhanced Stats Cards */}
@@ -253,8 +261,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Enhanced About Section */}
-      <section className="py-20 sm:py-28 md:py-32 bg-white">
+  {/* Enhanced About Section */}
+  <section id="about" className="scroll-mt-40 py-20 sm:py-28 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 sm:mb-20 md:mb-24">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 sm:mb-8 md:mb-10 px-2">About CSMS Platform</h2>
@@ -807,8 +815,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Enhanced Footer */}
-      <footer className="bg-gray-900 text-white py-16 sm:py-20">
+  {/* Enhanced Footer */}
+  <footer id="contact" className="scroll-mt-40 bg-gray-900 text-white py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-12">
             <div className="lg:col-span-2">

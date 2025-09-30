@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
 import { 
@@ -36,71 +36,10 @@ import {
   NotebookPen
 } from 'lucide-react';
 
-const PlaceOrder = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [selectedProducts, setSelectedProducts] = useState([
-    {
-      id: 1,
-      name: 'Premium Portland Cement',
-      price: 75,
-      unit: 'per 50kg bag',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 2,
-      name: 'Crushed Granite 20mm',
-      price: 45,
-      unit: 'per ton',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1544819667-3131c8c8da2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    },
-    {
-      id: 3,
-      name: 'Coarse Sand',
-      price: 35,
-      unit: 'per ton',
-      quantity: 0,
-      image: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
-    }
-  ]);
+/* ---------- Extracted Components (stable identities) ---------- */
 
-  const [orderDetails, setOrderDetails] = useState({
-    customerName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: 'Jeddah',
-    deliveryDate: '',
-    notes: ''
-  });
-
-  const updateQuantity = (productId, change) => {
-    setSelectedProducts(prev => prev.map(product => 
-      product.id === productId 
-        ? { ...product, quantity: Math.max(0, product.quantity + change) }
-        : product
-    ));
-  };
-
-  const getTotal = () => {
-    return selectedProducts.reduce((total, product) => 
-      total + (product.price * product.quantity), 0
-    );
-  };
-
-  const getItemsCount = () => {
-    return selectedProducts.reduce((count, product) => count + product.quantity, 0);
-  };
-
-  const steps = [
-    { id: 1, title: 'Select Products', icon: Package, description: 'Choose materials and quantities' },
-    { id: 2, title: 'Delivery Details', icon: MapPin, description: 'Provide delivery information' },
-    { id: 3, title: 'Review & Confirm', icon: CheckCircle, description: 'Review your order' }
-  ];
-
-  const StepIndicator = () => (
+function StepIndicator({ steps, currentStep }) {
+  return (
     <div className="mb-12 sm:mb-16">
       <div className="flex items-center justify-center">
         {steps.map((step, index) => (
@@ -132,8 +71,10 @@ const PlaceOrder = () => {
       </div>
     </div>
   );
+}
 
-  const ProductSelection = () => (
+function ProductSelection({ selectedProducts, updateQuantity, setProductQuantity, total, itemsCount }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Select Products</h2>
       
@@ -161,9 +102,14 @@ const PlaceOrder = () => {
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-16 text-center font-bold text-xl">
-                    {product.quantity}
-                  </span>
+                  <input
+                    type="number"
+                    min="0"
+                    aria-label={`${product.name} quantity`}
+                    className="w-20 text-center font-bold text-xl bg-white border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300 hide-arrow"
+                    value={product.quantity}
+                    onChange={(e) => setProductQuantity(product.id, e.target.value)}
+                  />
                   <button 
                     onClick={() => updateQuantity(product.id, 1)}
                     className="bg-gray-100 hover:bg-gray-200 p-3 rounded-xl transition-colors duration-200"
@@ -189,61 +135,67 @@ const PlaceOrder = () => {
         <div className="space-y-2">
           <div className="flex justify-between text-gray-700">
             <span className="font-medium">Total Items:</span>
-            <span className="font-bold">{getItemsCount()}</span>
+            <span className="font-bold">{itemsCount}</span>
           </div>
           <div className="flex justify-between text-xl sm:text-2xl font-black text-blue-600 pt-2 border-t border-blue-200">
             <span>Total Amount:</span>
-            <span>SAR {getTotal().toFixed(2)}</span>
+            <span>SAR {total.toFixed(2)}</span>
           </div>
         </div>
       </div>
     </div>
   );
+}
 
-  const DeliveryDetails = () => (
+function DeliveryDetails({ orderDetails, onChange, today }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Delivery Details</h2>
       
       <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Full Name *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Full Name <span className='text-red-400'>*</span></label>
             <input
               type="text"
+              name="customerName"
               value={orderDetails.customerName}
-              onChange={(e) => setOrderDetails({...orderDetails, customerName: e.target.value})}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter your full name"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Email Address *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Email Address <span className='text-red-400'>*</span></label>
             <input
               type="email"
+              name="email"
               value={orderDetails.email}
-              onChange={(e) => setOrderDetails({...orderDetails, email: e.target.value})}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="your.email@example.com"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Phone Number <span className='text-red-400'>*</span></label>
             <input
               type="tel"
+              name="phone"
               value={orderDetails.phone}
-              onChange={(e) => setOrderDetails({...orderDetails, phone: e.target.value})}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="+966 XX XXX XXXX"
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">City *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">City <span className='text-red-400'>*</span></label>
             <select
+              name="city"
               value={orderDetails.city}
-              onChange={(e) => setOrderDetails({...orderDetails, city: e.target.value})}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
             >
               <option value="Jeddah">Jeddah</option>
@@ -252,10 +204,11 @@ const PlaceOrder = () => {
           </div>
           
           <div className="md:col-span-2">
-            <label className="block text-sm font-bold text-gray-700 mb-2">Delivery Address *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Delivery Address <span className='text-red-400'>*</span></label>
             <textarea
+              name="address"
               value={orderDetails.address}
-              onChange={(e) => setOrderDetails({...orderDetails, address: e.target.value})}
+              onChange={onChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Enter complete delivery address with landmarks"
@@ -263,21 +216,23 @@ const PlaceOrder = () => {
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Preferred Delivery Date *</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Preferred Delivery Date <span className='text-red-400'>*</span></label>
             <input
               type="date"
+              name="deliveryDate"
               value={orderDetails.deliveryDate}
-              onChange={(e) => setOrderDetails({...orderDetails, deliveryDate: e.target.value})}
+              onChange={onChange}
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
-              min={new Date().toISOString().split('T')[0]}
+              min={today}
             />
           </div>
           
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Special Notes</label>
+            <label className="block text-sm font-bold text-gray-700 mb-2">Special Notes (Optional)</label>
             <textarea
+              name="notes"
               value={orderDetails.notes}
-              onChange={(e) => setOrderDetails({...orderDetails, notes: e.target.value})}
+              onChange={onChange}
               rows="3"
               className="w-full p-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all duration-300"
               placeholder="Any special delivery instructions or notes"
@@ -287,8 +242,10 @@ const PlaceOrder = () => {
       </div>
     </div>
   );
+}
 
-  const ReviewConfirm = () => (
+function ReviewConfirm({ selectedProducts, orderDetails, total }) {
+  return (
     <div className="space-y-6">
       <h2 className="text-2xl sm:text-3xl font-black text-gray-900 mb-6">Review & Confirm Order</h2>
       
@@ -308,7 +265,7 @@ const PlaceOrder = () => {
         <div className="mt-6 pt-4 border-t border-gray-200">
           <div className="flex justify-between text-2xl font-black text-blue-600">
             <span>Total Amount:</span>
-            <span>SAR {getTotal().toFixed(2)}</span>
+            <span>SAR {total.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -351,19 +308,128 @@ const PlaceOrder = () => {
       </div>
     </div>
   );
+}
+
+/* ---------- Main Page ---------- */
+
+const PlaceOrder = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+
+  // use api in future for these objects
+  const [selectedProducts, setSelectedProducts] = useState([
+    {
+      id: 1,
+      name: 'Premium Portland Cement',
+      price: 75,
+      unit: 'per 50kg bag',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    },
+    {
+      id: 2,
+      name: 'Crushed Granite 20mm',
+      price: 45,
+      unit: 'per ton',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1544819667-3131c8c8da2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    },
+    {
+      id: 3,
+      name: 'Coarse Sand',
+      price: 35,
+      unit: 'per ton',
+      quantity: 0,
+      image: 'https://images.unsplash.com/photo-1516534775068-ba3e7458af70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+    }
+  ]);
+
+  const [orderDetails, setOrderDetails] = useState({
+    customerName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: 'Jeddah',
+    deliveryDate: '',
+    notes: ''
+  });
+
+  // Handlers
+  const handleOrderDetailChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setOrderDetails(prev => (prev[name] === value ? prev : { ...prev, [name]: value }));
+  }, []);
+
+  const updateQuantity = useCallback((productId, change) => {
+    setSelectedProducts(prev => prev.map(product => 
+      product.id === productId 
+        ? { ...product, quantity: Math.max(0, product.quantity + change) }
+        : product
+    ));
+  }, []);
+
+  const setProductQuantity = useCallback((productId, value) => {
+    const numeric = Number.isNaN(Number(value)) ? 0 : Number(value);
+    setSelectedProducts(prev => prev.map(product => 
+      product.id === productId 
+        ? { ...product, quantity: Math.max(0, numeric) }
+        : product
+    ));
+  }, []);
+
+  // Derived values
+  const total = useMemo(() => {
+    return selectedProducts.reduce((sum, product) => sum + product.price * product.quantity, 0);
+  }, [selectedProducts]);
+
+  const itemsCount = useMemo(() => {
+    return selectedProducts.reduce((count, product) => count + product.quantity, 0);
+  }, [selectedProducts]);
+
+  const steps = useMemo(() => ([
+    { id: 1, title: 'Select Products', icon: Package, description: 'Choose materials and quantities' },
+    { id: 2, title: 'Delivery Details', icon: MapPin, description: 'Provide delivery information' },
+    { id: 3, title: 'Review & Confirm', icon: CheckCircle, description: 'Review your order' }
+  ]), []);
+
+  const today = useMemo(() => new Date().toISOString().split('T')[0], []);
 
   const renderCurrentStep = () => {
     switch(currentStep) {
-      case 1: return <ProductSelection />;
-      case 2: return <DeliveryDetails />;
-      case 3: return <ReviewConfirm />;
-      default: return <ProductSelection />;
+      case 1:
+        return (
+          <ProductSelection
+            selectedProducts={selectedProducts}
+            updateQuantity={updateQuantity}
+            setProductQuantity={setProductQuantity}
+            total={total}
+            itemsCount={itemsCount}
+          />
+        );
+      case 2:
+        return (
+          <DeliveryDetails
+            orderDetails={orderDetails}
+            onChange={handleOrderDetailChange}
+            today={today}
+          />
+        );
+      case 3:
+        return (
+          <ReviewConfirm
+            selectedProducts={selectedProducts}
+            orderDetails={orderDetails}
+            total={total}
+          />
+        );
+      default:
+        return null;
     }
   };
 
   const canProceed = () => {
     if (currentStep === 1) {
-      return getItemsCount() > 0;
+      return itemsCount > 0;
     }
     if (currentStep === 2) {
       return orderDetails.customerName && orderDetails.email && orderDetails.phone && orderDetails.address && orderDetails.deliveryDate;
@@ -406,12 +472,12 @@ const PlaceOrder = () => {
                 <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Track Order
                 </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <Link to="/about" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   About
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                </Link>
+                <Link to="/contact" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Contact
-                </a>
+                </Link>
               </div>
 
               {/* CTA Buttons */}
@@ -455,12 +521,12 @@ const PlaceOrder = () => {
                   <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Track Order
                   </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  <Link to="/about" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     About
-                  </a>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  </Link>
+                  <Link to="/contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact
-                  </a>
+                  </Link>
                   <div className="pt-4 space-y-3 border-t border-white/20">
                     <button className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
                       Login
@@ -491,7 +557,7 @@ const PlaceOrder = () => {
           </div>
 
           {/* Step Indicator */}
-          <StepIndicator />
+          <StepIndicator steps={steps} currentStep={currentStep} />
 
           {/* Step Content */}
           <div className="mb-12">
