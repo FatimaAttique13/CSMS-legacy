@@ -100,7 +100,7 @@ const Login = () => {
             </button>
           </form>
           <p className="text-gray-600 text-sm mt-8 font-medium text-center">Don't have an account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline">Create one</Link></p>
-          <p className="text-[11px] text-gray-400 mt-6 text-center">Demo admin credentials: <span class="font-semibold">admin@gmail.com</span> / <span class="font-semibold">admin</span></p>
+          <p className="text-[11px] text-gray-400 mt-6 text-center">Demo admin credentials: <span className="font-semibold">admin@csms.com</span> / <span className="font-semibold">admin</span></p>
         </div>
       </div>
     </div>

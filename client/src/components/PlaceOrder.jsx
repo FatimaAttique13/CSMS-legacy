@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
 import { Link } from 'react-router-dom';
 
 import { 
@@ -39,6 +40,7 @@ import {
 /* ---------- Extracted Components (stable identities) ---------- */
 
 function StepIndicator({ steps, currentStep }) {
+  const { user } = useAuth();
   return (
     <div className="mb-12 sm:mb-16">
       <div className="flex items-center justify-center">
@@ -469,9 +471,9 @@ const PlaceOrder = () => {
                 <Link to="/place-order" className="px-4 py-2 text-blue-600 font-medium transition-all duration-300 rounded-full bg-white/40 text-sm">
                   Place Order
                 </Link>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                <Link to="/track-order" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Track Order
-                </a>
+                </Link>
                 <Link to="/about" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   About
                 </Link>
@@ -480,15 +482,17 @@ const PlaceOrder = () => {
                 </Link>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="hidden lg:flex items-center space-x-3">
-                <button className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
-                  Login
-                </button>
-                <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
-                  Get Started
-                </button>
-              </div>
+              {/* CTA Buttons (hide when authenticated) */}
+              {!user && (
+                <div className="hidden lg:flex items-center space-x-3">
+                  <Link to="/login" className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
+                    Login
+                  </Link>
+                  <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
+                    Get Started
+                  </Link>
+                </div>
+              )}
 
               {/* Mobile Menu Button */}
               <button
@@ -518,23 +522,25 @@ const PlaceOrder = () => {
                   <Link to="/place-order" className="px-4 py-3 text-blue-600 bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Place Order
                   </Link>
-                  <a href="#" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
+                  <Link to="/track-order" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Track Order
-                  </a>
+                  </Link>
                   <Link to="/about" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     About
                   </Link>
                   <Link to="/contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact
                   </Link>
-                  <div className="pt-4 space-y-3 border-t border-white/20">
-                    <button className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
-                      Login
-                    </button>
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
-                      Get Started
-                    </button>
-                  </div>
+                  {!user && (
+                    <div className="pt-4 space-y-3 border-t border-white/20">
+                      <Link to="/login" className="w-full text-center text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
+                        Login
+                      </Link>
+                      <Link to="/signup" className="w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
+                        Get Started
+                      </Link>
+                    </div>
+                  )}
                 </nav>
               </div>
             </div>

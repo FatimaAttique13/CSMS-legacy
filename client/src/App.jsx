@@ -9,10 +9,12 @@ import OrderHistory from './components/OrderHistory.jsx';
 import CustomerDashboard from './components/CustomerDashboard.jsx';
 import Contact from './components/Contact.jsx';
 import AdminAnalytics from './components/AdminAnalytics.jsx';
+import AdminInvoices from './components/AdminInvoices.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
+import TrackOrder from './components/TrackOrder.jsx';
 
 // Example of lazy loading for future pages (keep pattern ready)
 // const TrackOrder = React.lazy(() => import('./components/TrackOrder.jsx'));
@@ -72,10 +74,11 @@ const App = () => {
             <Route path="/place-order" element={<RequireAuth roles={['customer','admin']}><PlaceOrder /></RequireAuth>} />
             <Route path="/order-history" element={<RequireAuth roles={['customer','admin']}><OrderHistory /></RequireAuth>} />
             <Route path="/dashboard" element={<RequireAuth roles={['customer','admin']}><CustomerDashboard /></RequireAuth>} />
+            <Route path="/track-order" element={<RequireAuth roles={['customer','admin']}><TrackOrder /></RequireAuth>} />
 
             {/* Admin only */}
             <Route path="/admin/analytics" element={<RequireAuth roles={['admin']}><AdminAnalytics /></RequireAuth>} />
-            {/* <Route path="/track-order" element={<TrackOrder />} /> */}
+            <Route path="/admin/invoices" element={<RequireAuth roles={['admin']}><AdminInvoices /></RequireAuth>} />
 
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />

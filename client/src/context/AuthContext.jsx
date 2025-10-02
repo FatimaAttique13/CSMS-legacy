@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async ({ email, password }) => {
     // Demo credential policy:
     //   Admin only if EXACT email + password match below.
-    const ADMIN_EMAIL = 'admin@gmail.com';
+  const ADMIN_EMAIL = 'admin@csms.com';
     const ADMIN_PASS = 'admin';
 
     if (!email || !password) {

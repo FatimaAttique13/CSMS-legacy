@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext.jsx';
 import { Link } from 'react-router-dom';
 
 import { 
@@ -344,6 +345,7 @@ const ProductsPage = () => {
     </div>
   );
 
+  const { user } = useAuth();
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-gray-100" style={{ fontFamily: 'Inter, Segoe UI, system-ui, sans-serif' }}>
       {/* Glassmorphic Navbar - Same as homepage */}
@@ -390,15 +392,17 @@ const ProductsPage = () => {
                 </Link>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="hidden lg:flex items-center space-x-3">
-                <button className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
-                  Login
-                </button>
-                <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
-                  Get Started
-                </button>
-              </div>
+              {/* CTA Buttons (hide when authenticated) */}
+              {!user && (
+                <div className="hidden lg:flex items-center space-x-3">
+                  <Link to="/login" className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
+                    Login
+                  </Link>
+                  <Link to="/signup" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
+                    Get Started
+                  </Link>
+                </div>
+              )}
 
               {/* Mobile Menu Button */}
               <button
@@ -437,14 +441,16 @@ const ProductsPage = () => {
                   <Link to="/contact" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">
                     Contact
                   </Link>
-                  <div className="pt-4 space-y-3 border-t border-white/20">
-                    <button className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
-                      Login
-                    </button>
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
-                      Get Started
-                    </button>
-                  </div>
+                  {!user && (
+                    <div className="pt-4 space-y-3 border-t border-white/20">
+                      <Link to="/login" className="w-full text-center text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">
+                        Login
+                      </Link>
+                      <Link to="/signup" className="w-full text-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">
+                        Get Started
+                      </Link>
+                    </div>
+                  )}
                 </nav>
               </div>
             </div>
@@ -644,7 +650,7 @@ const ProductsPage = () => {
               <h3 className="text-xl sm:text-2xl font-bold mb-8 text-white">Quick Access</h3>
               <ul className="space-y-4 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">Place Order</a></li>
-                <li><a href="#" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">Track Order</a></li>
+                <li><Link to="/track-order" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">Track Order</Link></li>
                 <li><a href="#" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">Order History</a></li>
                 <li><a href="#" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">Invoice Center</a></li>
                 <li><a href="#" className="hover:text-white transition-colors duration-300 text-base sm:text-lg font-medium hover:translate-x-1 transform inline-block">About CSMS</a></li>
