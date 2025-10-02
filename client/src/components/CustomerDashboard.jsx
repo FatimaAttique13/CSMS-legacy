@@ -401,7 +401,7 @@ const CustomerDashboard = () => {
                     <ChevronDown className="h-4 w-4 ml-1 transition-transform group-hover:rotate-180 duration-300" />
                   </Link>
                   <div
-                    className={absolute ${dropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'} top-full left-0 mt-3 bg-white/98 backdrop-blur-xl shadow-2xl rounded-2xl py-6 w-80 border border-gray-100/50 transform translate-y-3 ${dropdownOpen ? 'translate-y-0' : ''} transition-all duration-300}
+                    className={`absolute ${dropdownOpen ? 'visible opacity-100' : 'invisible opacity-0'} top-full left-0 mt-3 bg-white/98 backdrop-blur-xl shadow-2xl rounded-2xl py-6 w-80 border border-gray-100/50 transform translate-y-3 ${dropdownOpen ? 'translate-y-0' : ''} transition-all duration-300`}
                     onMouseEnter={() => setDropdownOpen(true)}
                     onMouseLeave={() => setDropdownOpen(false)}
                   >
@@ -610,7 +610,7 @@ const CustomerDashboard = () => {
                   const h = Math.round((m.total / trend.max) * 100);
                   return (
                     <div key={idx} className="flex-1 flex flex-col items-center">
-                      <div className="w-6 sm:w-8 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-xl" style={{ height: ${Math.max(6, h)}% }}></div>
+                      <div className="w-6 sm:w-8 bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-xl" style={{ height: `${Math.max(6, h)}%` }}></div>
                       <div className="mt-2 text-xs text-gray-500 font-semibold">{m.label}</div>
                     </div>
                   );
