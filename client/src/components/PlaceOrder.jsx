@@ -315,6 +315,7 @@ function ReviewConfirm({ selectedProducts, orderDetails, total }) {
 /* ---------- Main Page ---------- */
 
 const PlaceOrder = () => {
+  const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
 
