@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 
 import { 
   Truck, 
@@ -46,10 +48,13 @@ import {
   AlertCircle,
   ChevronUp,
   ChevronRight,
-  Warehouse
+  Warehouse,
+  LogOut
 } from 'lucide-react';
 
 const InventoryPage = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [viewMode, setViewMode] = useState('grid');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -220,6 +225,11 @@ const InventoryPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   const filteredItems = inventoryItems.filter(item => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -341,42 +351,33 @@ const InventoryPage = () => {
                 </div>
                 <div>
                   <span className="text-lg sm:text-xl font-black text-gray-900 tracking-tight leading-none">CSMS</span>
-                  <p className="text-[10px] sm:text-xs text-black-600 font-semibold tracking-wider uppercase hidden xs:block">Supply Management</p>
+                  <p className="text-[10px] sm:text-xs text-black-600 font-semibold tracking-wider uppercase hidden xs:block">Admin Panel</p>
                 </div>
               </div>
             
-              {/* Navigation */}
+              {/* Admin Nav */}
               <div className="hidden lg:flex items-center space-x-1">
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Home
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Products
-                </a>
-                <a href="#" className="px-4 py-2 text-blue-600 font-medium transition-all duration-300 rounded-full bg-white/40 text-sm">
+                <Link to="/admin" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Dashboard
+                </Link>
+                <Link to="/admin/orders" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Orders
+                </Link>
+                <Link to="/admin/inventory" className="px-4 py-2 text-blue-600 font-medium transition-all duration-300 rounded-full bg-white/40 text-sm">
                   Inventory
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Place Order
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Track Order
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  About
-                </a>
-                <a href="#" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Contact
-                </a>
+                </Link>
+                <Link to="/admin/analytics" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Analytics
+                </Link>
+                <Link to="/admin/invoices" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Invoices
+                </Link>
               </div>
 
-              {/* CTA Buttons */}
+              {/* Actions */}
               <div className="hidden lg:flex items-center space-x-3">
-                <button className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm">
-                  Login
-                </button>
-                <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm">
-                  Get Started
+                <button onClick={handleLogout} className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm inline-flex items-center">
+                  <LogOut className="h-4 w-4 mr-2" /> Logout
                 </button>
               </div>
 
@@ -393,6 +394,24 @@ const InventoryPage = () => {
               </button>
             </div>
           </nav>
+
+          {/* Mobile Panel */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4">
+              <div className="bg-white/25 backdrop-blur-2xl border border-white/30 rounded-3xl shadow-2xl p-6">
+                <nav className="flex flex-col space-y-2">
+                  <Link to="/admin" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Dashboard</Link>
+                  <Link to="/admin/orders" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Orders</Link>
+                  <Link to="/admin/inventory" className="px-4 py-3 text-blue-600 bg-white/40 rounded-2xl font-medium transition-all duration-300">Inventory</Link>
+                  <Link to="/admin/analytics" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Analytics</Link>
+                  <Link to="/admin/invoices" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Invoices</Link>
+                  <div className="pt-4 space-y-3 border-top border-white/20">
+                    <button onClick={handleLogout} className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">Logout</button>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 

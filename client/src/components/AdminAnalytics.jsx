@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 import {
   Factory,
   Menu,
@@ -25,7 +26,8 @@ import {
   Building2,
   MapPin,
   ChevronDown,
-  Eye
+  Eye,
+  LogOut
 } from 'lucide-react';
 
 // Shared Status constants and styles (same as other pages)
@@ -134,6 +136,8 @@ const ProgressSteps = ({ status }) => {
 };
 
 const AdminAnalytics = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [timeframe, setTimeframe] = useState('30d'); // 7d | 30d | ytd | all
   const [query, setQuery] = useState('');
@@ -503,6 +507,11 @@ const AdminAnalytics = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   const recent = useMemo(() => filteredOrders.slice(0, 8), [filteredOrders]);
 
   return (
@@ -534,17 +543,14 @@ const AdminAnalytics = () => {
                 <Link to="/admin/orders" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Orders
                 </Link>
-                <Link to="/admin/drivers" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Drivers
+                <Link to="/admin/inventory" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
+                  Inventory
                 </Link>
                 <Link to="/admin/analytics" className="px-4 py-2 text-blue-600 font-medium transition-all duration-300 rounded-full bg-white/40 text-sm">
                   Analytics
                 </Link>
                 <Link to="/admin/invoices" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
                   Invoices
-                </Link>
-                <Link to="/admin/settings" className="px-4 py-2 text-black-800 hover:text-blue-600 font-medium transition-all duration-300 rounded-full hover:bg-white/40 text-sm">
-                  Settings
                 </Link>
               </div>
 
@@ -553,8 +559,8 @@ const AdminAnalytics = () => {
                 <button onClick={shareReport} className="text-black-800 hover:text-blue-600 font-medium px-4 py-2 rounded-full hover:bg-white/40 transition-all duration-300 text-sm inline-flex items-center">
                   <Share2 className="h-4 w-4 mr-2" /> Share
                 </button>
-                <button onClick={printPage} className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm inline-flex items-center">
-                  <Printer className="h-4 w-4 mr-2" /> Print
+                <button onClick={handleLogout} className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm inline-flex items-center">
+                  <LogOut className="h-4 w-4 mr-2" /> Logout
                 </button>
               </div>
 
@@ -575,13 +581,12 @@ const AdminAnalytics = () => {
                 <nav className="flex flex-col space-y-2">
                   <Link to="/admin" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Dashboard</Link>
                   <Link to="/admin/orders" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Orders</Link>
-                  <Link to="/admin/drivers" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Drivers</Link>
+                  <Link to="/admin/inventory" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Inventory</Link>
                   <Link to="/admin/analytics" className="px-4 py-3 text-blue-600 bg-white/40 rounded-2xl font-medium transition-all duration-300">Analytics</Link>
                   <Link to="/admin/invoices" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Invoices</Link>
-                  <Link to="/admin/settings" className="px-4 py-3 text-gray-800 hover:text-blue-600 hover:bg-white/40 rounded-2xl font-medium transition-all duration-300">Settings</Link>
                   <div className="pt-4 space-y-3 border-top border-white/20">
                     <button onClick={shareReport} className="w-full text-gray-800 hover:text-blue-600 font-medium px-4 py-3 rounded-2xl hover:bg-white/40 transition-all duration-300 border border-white/30">Share</button>
-                    <button onClick={printPage} className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">Print Report</button>
+                    <button onClick={handleLogout} className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-3 rounded-2xl font-semibold shadow-lg">Logout</button>
                   </div>
                 </nav>
               </div>

@@ -10,6 +10,7 @@ import CustomerDashboard from './components/CustomerDashboard.jsx';
 import Contact from './components/Contact.jsx';
 import AdminAnalytics from './components/AdminAnalytics.jsx';
 import AdminInvoices from './components/AdminInvoices.jsx';
+import Inventory from './components/Inventory.jsx';
 import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
@@ -79,6 +80,7 @@ const App = () => {
             {/* Admin only */}
             <Route path="/admin/analytics" element={<RequireAuth roles={['admin']}><AdminAnalytics /></RequireAuth>} />
             <Route path="/admin/invoices" element={<RequireAuth roles={['admin']}><AdminInvoices /></RequireAuth>} />
+            <Route path="/admin/inventory" element={<RequireAuth roles={['admin']}><Inventory /></RequireAuth>} />
 
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
